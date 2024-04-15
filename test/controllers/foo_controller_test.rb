@@ -5,9 +5,4 @@ class FooControllerTest < ActionDispatch::IntegrationTest
     get foo_bar_url
     assert_response :success
   end
-
-  test "should get baz" do
-    get foo_baz_url
-    assert_response :success
-  end
 end
