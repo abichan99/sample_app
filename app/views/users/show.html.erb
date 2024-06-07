@@ -2,6 +2,10 @@
 <div class="row">
   <aside class="col-md-4">
     <section class="user_info">
+      <% flash.each do |message_type, message| %>
+      <%binding.break%>
+        <div class="alert alert-<%= message_type %>"><%= message %></div>
+      <% end %>
       <h1>
         <%= gravatar_for @user, size: 50 %>
         <%= @user.name %>
