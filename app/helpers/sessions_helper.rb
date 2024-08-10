@@ -39,7 +39,16 @@ module SessionsHelper
     end
   end
 
+  def current_user?(user)
+    user && user == current_user
+  end
+
   def logged_in?
     !current_user.nil?
+  end
+
+  # アクセスしようとする url を保存する
+  def store_location
+    session[:forwarding_url] = request.original_url if request.get?
   end
 end
