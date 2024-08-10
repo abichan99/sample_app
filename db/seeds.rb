@@ -10,7 +10,8 @@
 User.create!([{name:  "hoge",
                email: "hoge@a.a",
                password:              "fooo1234",
-               password_confirmation: "fooo1234"}])
+               password_confirmation: "fooo1234"},
+               admin: true])
 
 # 追加のユーザーをまとめて作成する
 99.times do |n|
