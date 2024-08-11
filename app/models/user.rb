@@ -23,16 +23,25 @@ class User < ApplicationRecord
   end
 
   # 渡されたトークンがダイジェストと一致したら true を返す
-  def authenticated?(remember_token)
-    return false unless remember_digest
+  def authenticated?(attribute, token)
+    digest = self.send("#{attribute}_digest")
+    return false unless digest
 
-    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+    BCrypt::Password.new(digest).is_password?(token)
   end
 
   # セッションハイジャック防止のためにセッショントークンを返す
   # この記憶ダイジェストを再利用しているのは単に利便性のため
   def session_token
     remember_digest || remember
+  end
+
+  def activate
+    update_columns(activated: true, activated_at: Time.zone.now)
+  end
+
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
   end
 
   # 渡された文字列のハッシュ値を返す
