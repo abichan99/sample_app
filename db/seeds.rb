@@ -7,11 +7,13 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 # メインのサンプルユーザーを1人作成する
-User.create!([{name:  "hoge",
-               email: "hoge@a.a",
-               password:              "fooo1234",
-               password_confirmation: "fooo1234"},
-               admin: true])
+User.create!([{name:  "asdf1234",
+               email: "asdf1234@a.a",
+               password:              "asdf1234",
+               password_confirmation: "asdf1234",
+               admin:     true,
+               activated: true,
+               activated_at: Time.zone.now}])
 
 # 追加のユーザーをまとめて作成する
 99.times do |n|
@@ -21,5 +23,7 @@ User.create!([{name:  "hoge",
   User.create!([{name:  name,
                  email: email,
                  password:              password,
-                 password_confirmation: password}])
+                 password_confirmation: password,
+                 activated:    true,
+                 activated_at: Time.zone.now}])
 end

@@ -5,16 +5,27 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.find_by(email: params[:session][:email].downcase)
-    if @user && @user.authenticate(params[:session][:password])
-      forwarding_url = session[:forwarding_url]
-      reset_session
-      params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
-      log_in @user
-      redirect_to forwarding_url || @user
-    else
+
+    # パスワードが違うとき
+    unless @user && @user.authenticate(params[:session][:password])
       flash.now[:danger] = 'Invalid email/password combination'
       render 'new', status: :unprocessable_entity
+      return
     end
+
+    # ユーザーが有効化されていないとき
+    unless @user && @user.activated?
+      flash[:warning] = "Account is not activated. Check your activation email."
+      redirect_to root_path
+      return
+    end
+
+    # 正常系
+    forwarding_url = session[:forwarding_url]
+    reset_session
+    params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
+    log_in @user
+    redirect_to forwarding_url || @user
   end
 
   def destroy
