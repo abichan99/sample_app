@@ -24,4 +24,8 @@ class MicropostTest < ActiveSupport::TestCase
     @micropost.content = "a" * 141
     assert_not @micropost.valid?
   end
+
+  test 'user.microposts are ordered by created_at field in descending order' do
+    assert_equal Micropost.first, microposts(:most_recent)
+  end
 end

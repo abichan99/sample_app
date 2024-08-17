@@ -8,6 +8,9 @@
       <h1>
         <%= gravatar_for @user, size: 50 %>
         <%= @user.name %>
+        
+        <%= @user.microposts.each do %>
+        <%= end %>
       </h1>
     </section>
   </aside>
