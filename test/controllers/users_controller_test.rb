@@ -73,4 +73,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :see_other
     assert_redirected_to root_url
   end
+
+  test "associated microposts are deleted when user is deleted" do
+    log_in_as @user
+    num_microposts = @user.microposts.count
+    assert_difference 'Micropost.count', -num_microposts do
+      @user.destroy
+    end
+  end
 end
