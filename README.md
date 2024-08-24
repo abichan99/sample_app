@@ -1,4 +1,6 @@
 # Ruby on Rails チュートリアルのサンプルアプリケーション
+[IMPORTANT]
+sfda
 
 これは、次の教材で作られたサンプルアプリケーションです。
 [*Ruby on Rails チュートリアル*](https://railstutorial.jp/)
